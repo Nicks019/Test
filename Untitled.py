@@ -14,8 +14,9 @@ from statsmodels.graphics.tsaplots import plot_acf,plot_pacf
 import statsmodels.stats.diagnostic as diag
 
 import statsmodels.api as sm
-streamlit run cli.py [ARGUMENTS]
 
+import warnings
+warnings.filterwarnings("ignore")
 
 st.title('Stock Forecast App')
 
