@@ -76,6 +76,8 @@ ax.fill_between(pred_ci.index,
                 pred_ci.iloc[:, 1], color='k', alpha=.25)
 ax.set_xlabel('Date')
 ax.set_ylabel('Order_Demand')
+plt.show()
+plt.legend()
 st.pyplot()
 FORECAST_19 = results.forecast(steps = N_Month)
 FORECAST_19=FORECAST_19.to_frame()
