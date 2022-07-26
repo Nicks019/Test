@@ -22,7 +22,7 @@ st.title('Stock Forecast App')
 Product = ('Category_19', 'Category_06', 'Category_05','Category_07','Category_28')
 Selected_Product = st.selectbox('Select dataset for prediction', Product)
 
-N_Month = st.text_input(" Input Forecast Months ", 24)
+N_Month = int(st.text_input(" Input Forecast Months ", 24))
 
 
 df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
