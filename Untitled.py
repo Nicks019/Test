@@ -10,7 +10,6 @@ import numpy as np
 from datetime import datetime, date 
 import matplotlib.pyplot as plt
 import seaborn as sns
-get_ipython().run_line_magic('matplotlib', 'inline')
 
 
 
