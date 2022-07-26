@@ -13,7 +13,6 @@ import seaborn as sns
 from statsmodels.graphics.tsaplots import plot_acf,plot_pacf
 import statsmodels.stats.diagnostic as diag
 from statsmodels.tsa.stattools import adfuller
-from pylab import rcParams
 import statsmodels.api as sm
 
 
