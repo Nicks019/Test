@@ -87,7 +87,7 @@ rich==12.4.4
 
 scikit-image==0.18.3
 
-scikit-learn-intelex==2021.20210714.120553
+
 
 semver==2.13.0
 
