@@ -21,7 +21,7 @@ Selected_Product = st.selectbox('Select dataset for prediction', Product)
 N_Month = st.text_input(" Input Forecast Months ")
 
 
-df = pd.read_csv(r"D:/Historical Product Demand.csv",parse_dates=['Date'])
+df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
 index = df[ df['Order_Demand'] <1000 ].index
 df.drop(index,inplace=True)
 df['Date'] = pd.to_datetime(df['Date'])
