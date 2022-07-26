@@ -22,7 +22,7 @@ st.title('Stock Forecast App')
 Product = ('Category_19', 'Category_06', 'Category_05','Category_07','Category_28')
 Selected_Product = st.selectbox('Select dataset for prediction', Product)
 
-N_Month = st.text_input(" Input Forecast Months ")
+N_Month = st.text_input(" Input Forecast Months ", 24)
 
 
 df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
@@ -65,7 +65,6 @@ decomposition = sm.tsa.seasonal_decompose(df_19, model='multiplicative')
 
 model=sm.tsa.statespace.SARIMAX(df19,order=(1,1,1),seasonal_order=(1,1,0,12))
 results=model.fit()
-N_Month
 pred = results.get_prediction(start=pd.to_datetime('2014-05-01'), dynamic=True)
 pred_ci = pred.conf_int()
 pred_uc = results.get_forecast(steps = N_Month)
