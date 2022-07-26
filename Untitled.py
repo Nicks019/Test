@@ -14,9 +14,7 @@ from statsmodels.graphics.tsaplots import plot_acf,plot_pacf
 import statsmodels.stats.diagnostic as diag
 
 import statsmodels.api as sm
-
-import warnings
-warnings.filterwarnings("ignore")
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 st.title('Stock Forecast App')
 
