@@ -105,7 +105,7 @@ streamlit==1.10.0
 strsimpy==0.2.1
 
 tables==3.6.1
-TBB==0.2
+
 
 tenacity==8.0.1
 terminado==0.9.4
