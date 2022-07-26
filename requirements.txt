@@ -13,7 +13,7 @@ brotlipy==0.7.0
 cachetools==5.2.0
 certifi==2021.10.8
 click==8.0.3
-clyent==1.2.2
+
 commonmark==0.9.1
 comtypes==1.1.10
 conda==4.10.3
