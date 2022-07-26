@@ -100,7 +100,7 @@ smmap==5.0.0
 Sphinx==4.2.0
 Scipy==1.8.0
 squarify==0.4.3
-statsmodels==0.12.2
+statsmodels==0.13.2
 streamlit==1.10.0
 strsimpy==0.2.1
 
