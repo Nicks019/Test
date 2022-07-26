@@ -10,6 +10,11 @@ import numpy as np
 from datetime import datetime, date 
 import matplotlib.pyplot as plt
 import seaborn as sns
+from statsmodels.graphics.tsaplots import plot_acf,plot_pacf
+import statsmodels.stats.diagnostic as diag
+from statsmodels.tsa.stattools import adfuller
+from pylab import rcParams
+import statsmodels.api as sm
 
 
 
@@ -56,12 +61,9 @@ df19 = df19.set_index(['Date'])
 df19= df19['Order_Demand'].resample('MS').mean()
 df19 = df19.fillna(df19.bfill())
 df_19=df19.to_frame()
-from pylab import rcParams
-import statsmodels.api as sm
+
 decomposition = sm.tsa.seasonal_decompose(df_19, model='multiplicative')
-from statsmodels.graphics.tsaplots import plot_acf,plot_pacf
-import statsmodels.stats.diagnostic as diag
-from statsmodels.tsa.stattools import adfuller
+
 model=sm.tsa.statespace.SARIMAX(df19,order=(1,1,1),seasonal_order=(1,1,0,12))
 results=model.fit()
 N_Month
