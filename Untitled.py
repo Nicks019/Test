@@ -105,4 +105,5 @@ if Product == 'Category_19':
             extra_order_for_refill.append(Extra_order)
     df = pd.DataFrame(list(zip(inventory_management_list_19,extra_order_for_refill,refill_list,order_placed,balanced_stock)), columns =['order_demand','Refill_0rder','refill_list','order','balanced'],index=FORECAST_19.index)
     st.write(df)
-
+else:
+    print('Ass')
