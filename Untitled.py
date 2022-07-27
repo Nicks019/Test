@@ -83,25 +83,23 @@ if Product == 'Category_19':
     balanced_stock=[]
     order_placed=[]
     extra_order_for_refill=[]
- 
-        for x in inventory_management_list_19:
-            if stock<=(x*1.2):
-                #then placedOrder
-                Extra_order=(x*1.2)-stock
-                stock=stock+Extra_order
-                refill_list.append(stock)
-                stock=stock-x#balancedStock
-                balanced_stock.append(stock)
-                order_placed.append(x)
-                extra_order_for_refill.append(Extra_order)
-            else:
-                Extra_order=0
-                stock=stock+Extra_order
-                refill_list.append(stock)
-                stock=stock-x
-                balanced_stock.append(stock)
-                order_placed.append(x)
-                extra_order_for_refill.append(Extra_order)
+    for x in inventory_management_list_19:
+        if stock<=(x*1.2):
+            Extra_order=(x*1.2)-stock
+            stock=stock+Extra_order
+            refill_list.append(stock)
+            stock=stock-x#balancedStock
+            balanced_stock.append(stock)
+            order_placed.append(x)
+            extra_order_for_refill.append(Extra_order)
+        else:
+            Extra_order=0
+            stock=stock+Extra_order
+            refill_list.append(stock)
+            stock=stock-x
+            balanced_stock.append(stock)
+            order_placed.append(x)
+            extra_order_for_refill.append(Extra_order)
     df = pd.DataFrame(list(zip(inventory_management_list_19,extra_order_for_refill,refill_list,order_placed,balanced_stock)), columns =['order_demand','Refill_0rder','refill_list','order','balanced'],index=FORECAST_19.index)
     st.write(df)
 elif Product == 'Category_06':
