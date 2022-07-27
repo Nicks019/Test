@@ -14,7 +14,7 @@ from statsmodels.graphics.tsaplots import plot_acf,plot_pacf
 import statsmodels.stats.diagnostic as diag
 import statsmodels.api as sm
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
+#st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title('Stock Forecast App')
 
 Product = ['Category_19', 'Category_06', 'Category_05','Category_07','Category_28']
