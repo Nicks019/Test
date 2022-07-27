@@ -51,7 +51,7 @@ def limit_imputer(value):
 df['Order_Demand']=df['Order_Demand'].apply(limit_imputer)
 li = ['Category_019','Category_006','Category_028','Category_005','Category_007']
 
-if Product == 'Category_19':
+if Product == Product[0]:
     df19 = df[df.Product_Category==li[0]]
     df19= df19.groupby('Date')['Order_Demand'].count().reset_index()
     df19 = df19.set_index(['Date'])
