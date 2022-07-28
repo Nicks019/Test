@@ -11,6 +11,19 @@ import statsmodels.api as sm
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title('Stock Forecast App')
 
+if st.button('Category_05'):
+    N_Month = int(st.text_input(" Input Forecast Months ", 24))
+    Category_05()
+if st.button('Category_28'):
+    N_Month = int(st.text_input(" Input Forecast Months ", 24))
+    Category_28()
+if st.button('Category_19'):
+    N_Month = int(st.text_input(" Input Forecast Months ", 24))
+    Category_19()
+if st.button('Category_06'):
+    N_Month = int(st.text_input(" Input Forecast Months ", 24))
+    Category_06()
+
 def Category_19():
     df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
     index = df[ df['Order_Demand'] <1000 ].index
@@ -361,18 +374,7 @@ def Category_05():
     mae = np.mean(np.abs(results.resid))
     st.write('MAE: %.3f' % mae)
     return(df,ax,FORECAST_05)
-if st.button('Category_05'):
-    N_Month = int(st.text_input(" Input Forecast Months ", 24))
-    Category_05()
-if st.button('Category_28'):
-    N_Month = int(st.text_input(" Input Forecast Months ", 24))
-    Category_28()
-if st.button('Category_19'):
-    N_Month = int(st.text_input(" Input Forecast Months ", 24))
-    Category_19()
-if st.button('Category_06'):
-    N_Month = int(st.text_input(" Input Forecast Months ", 24))
-    Category_06()
+
     
     
     
