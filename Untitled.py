@@ -44,14 +44,6 @@ def Category_19():
             return value
     df['Order_Demand']=df['Order_Demand'].apply(limit_imputer)
 
-
-    #Product = ['Category_19', 'Category_06', 'Category_05','Category_07','Category_28']
-    #Selected_Product = st.selectbox('Select dataset for prediction', Product)
-    #N_Month = int(st.text_input(" Input Forecast Months ", 24))
-
-# st.button('Category_19')
-
-
     li = ['Category_019','Category_006','Category_028','Category_005','Category_007']
     df19 = df[df.Product_Category==li[0]]
     df19= df19.groupby('Date')['Order_Demand'].count().reset_index()
@@ -193,11 +185,11 @@ def Category_06():
     mae = np.mean(np.abs(results.resid))
     st.write('MAE: %.3f' % mae)
     return(df,ax,FORECAST_06)
-    y_forecasted = pred.predicted_mean
-    y_truth = df06['2016-01-01':]
-    mse = ((y_forecasted - y_truth) ** 2).mean()
-    st.write('MSE {}'.format(round(mse, 2)))
-    st.write('RMSE: {}'.format(round(np.sqrt(mse), 2)))
+    y_forecasted1 = pred.predicted_mean
+    y_truth1 = df06['2016-01-01':]
+    mse1 = ((y_forecasted1 - y_truth1) ** 2).mean()
+    st.write('MSE {}'.format(round(mse1, 2)))
+    st.write('RMSE: {}'.format(round(np.sqrt(mse1), 2)))
 
 def Category_28():
     df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
