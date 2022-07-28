@@ -12,9 +12,7 @@ st.set_page_config(page_title = "Compunnel digital")
 st.image("compunnel.png",width=100)
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
-st.title('Stock Forecast App')
-
-
+st.title('Demand Forecast App')
 
 def Category_19():
     df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
