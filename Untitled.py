@@ -274,13 +274,13 @@ def Category_28():
     st.write(df)
     mae = np.mean(np.abs(results.resid))
     st.write('MAE: %.3f' % mae)
-    return(df,ax,FORECAST_28)
     y_forecasted = pred.predicted_mean
     y_truth = df28['2016-01-01':]
     mse = ((y_forecasted - y_truth) ** 2).mean()
     st.write('MSE {}'.format(round(mse, 2)))
     st.write('RMSE: {}'.format(round(np.sqrt(mse), 2)))
-
+    return(df,ax,FORECAST_28)
+  
 def Category_05():
     df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
     index = df[ df['Order_Demand'] <1000 ].index
@@ -364,12 +364,13 @@ def Category_05():
     st.write(df)
     mae = np.mean(np.abs(results.resid))
     st.write('MAE: %.3f' % mae)
-    return(df,ax,FORECAST_05)
     y_forecasted = pred.predicted_mean
     y_truth = df05['2016-01-01':]
     mse = ((y_forecasted - y_truth) ** 2).mean()
     st.write('MSE {}'.format(round(mse, 2)))
     st.write('RMSE: {}'.format(round(np.sqrt(mse), 2)))
+    return(df,ax,FORECAST_05)
+  
 
 def Category_07():
     df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
@@ -454,12 +455,13 @@ def Category_07():
     st.write(df)
     mae = np.mean(np.abs(results.resid))
     st.write('MAE: %.3f' % mae)
-    return(df,ax,FORECAST_07)
     y_forecasted = pred.predicted_mean
     y_truth = df07['2016-01-01':]
     mse = ((y_forecasted - y_truth) ** 2).mean()
     st.write('MSE {}'.format(round(mse, 2)))
     st.write('RMSE: {}'.format(round(np.sqrt(mse), 2)))
+    return(df,ax,FORECAST_07)
+  
 
 def All_Category():
     df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
@@ -543,12 +545,13 @@ def All_Category():
     st.write(df)
     mae = np.mean(np.abs(results.resid))
     st.write('MAE: %.3f' % mae)
-    return(df,ax,FORECAST_alldf)
     y_forecasted = pred.predicted_mean
     y_truth = alldf['2016-01-01':]
     mse = ((y_forecasted - y_truth) ** 2).mean()
     st.write('MSE {}'.format(round(mse, 2)))
     st.write('RMSE: {}'.format(round(np.sqrt(mse), 2)))
+    return(df,ax,FORECAST_alldf)
+    
     
 if st.button('All_Category'):
     N_Month = int(st.text_input(" Input Forecast Months ", 24))
