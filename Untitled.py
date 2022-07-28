@@ -150,7 +150,7 @@ def Category_06():
     
     pred = results.get_prediction(start=pd.to_datetime('2014-05-01'), dynamic=True) #false is when using the entire history.
     pred_ci = pred.conf_int()
-    ax1 = df6['2016':].plot(label='observed')
+    ax1 = df06['2016':].plot(label='observed')
     pred.predicted_mean.plot(ax1=ax1, label='One-step ahead Forecast', alpha=.7, figsize=(14, 7))
     ax1.fill_between(pred_ci.index,pred_ci.iloc[:, 0],pred_ci.iloc[:, 1], color='blue', alpha=.2)
     ax1.set_xlabel('Date')
@@ -197,6 +197,8 @@ def Category_06():
             extra_order_for_refill.append(Extra_order)
     df = pd.DataFrame(list(zip(inventory_management_list_06,extra_order_for_refill,refill_list,order_placed,balanced_stock)), columns =['order_demand','Refill_0rder','refill_list','order','balanced'],index=FORECAST_06.index)
     st.write(df)
+    mae = np.mean(np.abs(results.resid))
+    print('MAE: %.3f' % mae)
     return(df,ax,FORECAST_06,ax1)
 if st.button('Category_19'):
     N_Month = int(st.text_input(" Input Forecast Months ", 24))
