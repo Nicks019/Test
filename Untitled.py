@@ -148,16 +148,6 @@ def Category_06():
     model=sm.tsa.statespace.SARIMAX(df06,order=(1,1,1),seasonal_order=(1,1,0,12))
     results=model.fit()
     
-    pred = results.get_prediction(start=pd.to_datetime('2014-05-01'), dynamic=True) #false is when using the entire history.
-    pred_ci = pred.conf_int()
-    ax1 = df06['2016':].plot(label='observed')
-    pred.predicted_mean.plot(ax1=ax1, label='One-step ahead Forecast', alpha=.7, figsize=(14, 7))
-    ax1.fill_between(pred_ci.index,pred_ci.iloc[:, 0],pred_ci.iloc[:, 1], color='blue', alpha=.2)
-    ax1.set_xlabel('Date')
-    ax1.set_ylabel('Order_Demand')
-    plt.legend()
-    plt.show()
-    
     pred = results.get_prediction(start=pd.to_datetime('2014-05-01'), dynamic=True)
     pred_ci = pred.conf_int()
     pred_uc = results.get_forecast(steps = N_Month)
@@ -199,7 +189,7 @@ def Category_06():
     st.write(df)
     mae = np.mean(np.abs(results.resid))
     print('MAE: %.3f' % mae)
-    return(df,ax,FORECAST_06,ax1)
+    return(df,ax,FORECAST_06)
 if st.button('Category_19'):
     N_Month = int(st.text_input(" Input Forecast Months ", 24))
     Category_19()
