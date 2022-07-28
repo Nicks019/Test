@@ -553,7 +553,7 @@ def All_Category():
     return(df,ax,FORECAST_alldf)
     
     
-if st.button('All_Category'):
+if st.button('Top5_Category'):
     N_Month = int(st.text_input(" Input Forecast Months ", 24))
     All_Category()
 
