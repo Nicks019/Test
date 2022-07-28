@@ -449,6 +449,93 @@ def Category_07():
     st.write('MAE: %.3f' % mae)
     return(df,ax,FORECAST_07)
 
+def All_Category():
+    df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
+    index = df[ df['Order_Demand'] <1000 ].index
+    df.drop(index,inplace=True)
+    df['Date'] = pd.to_datetime(df['Date'])
+    df['Year'] = df['Date'].dt.year
+    df['Month'] = df['Date'].dt.month
+    index1 = df[df['Year'] == 2011 ].index
+    df.drop(index1,inplace=True)
+    index2 = df[df['Year'] == 2017].index
+    df.drop(index2,inplace=True)
+    df.drop(['Year','Month'],axis=1,inplace=True)
+    df.dropna(axis=0, inplace=True)
+    q1=df['Order_Demand'].quantile(0.25)
+    q2=df['Order_Demand'].quantile(0.50)
+    q3=df['Order_Demand'].quantile(0.75)
+    iqr=q3-q1
+    upper_limit=q3+1.5*iqr
+    lower_limit=q1-1.5*iqr
+    upper_limit,lower_limit
+    def limit_imputer(value):
+        if value > upper_limit:
+            return upper_limit
+        if value < lower_limit:
+            a=a+1
+            return lower_limit
+        else:
+            return value
+    df['Order_Demand']=df['Order_Demand'].apply(limit_imputer)    
+    li = ['Category_019','Category_006','Category_028','Category_005','Category_007']
+    alldf=df[df.Product_Category.isin(li)]
+    alldf = alldf.set_index('Date')
+    alldf= alldf.groupby('Date')['Order_Demand'].count().reset_index()
+    alldf = alldf.set_index(['Date'])
+    alldf= alldf['Order_Demand'].resample('MS').mean()
+    alldf = alldf.fillna(alldf.bfill())
+    df_alldf =alldf.to_frame()
+    decomposition = sm.tsa.seasonal_decompose(df_alldf, model='multiplicative')
+    model=sm.tsa.statespace.SARIMAX(alldf,order=(1,1,1),seasonal_order=(1,1,0,12))
+    results=model.fit()
+    
+    pred = results.get_prediction(start=pd.to_datetime('2014-05-01'), dynamic=True)
+    pred_ci = pred.conf_int()
+    pred_uc = results.get_forecast(steps = N_Month)
+    pred_ci = pred_uc.conf_int()
+    ax = alldf.plot(label='observed', figsize=(16, 8))
+    pred_uc.predicted_mean.plot(ax=ax, label='Forecast')
+    ax.fill_between(pred_ci.index,pred_ci.iloc[:, 0],pred_ci.iloc[:, 1], color='k', alpha=.25)
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Order_Demand')
+    plt.show()
+    plt.legend()
+    st.pyplot()
+    FORECAST_alldf = results.forecast(steps = N_Month)
+    FORECAST_alldf=FORECAST_alldf.to_frame()
+    inventory_management_list_alldf = FORECAST_alldf['predicted_mean'].tolist()
+    stock=0
+    refill_list=[]
+    balanced_stock=[]
+    order_placed=[]
+    extra_order_for_refill=[]
+    for x in inventory_management_list_alldf:
+        if stock<=(x*1.2):
+            Extra_order=(x*1.2)-stock
+            stock=stock+Extra_order
+            refill_list.append(stock)
+            stock=stock-x#balancedStock
+            balanced_stock.append(stock)
+            order_placed.append(x)
+            extra_order_for_refill.append(Extra_order)
+        else:
+            Extra_order=0
+            stock=stock+Extra_order
+            refill_list.append(stock)
+            stock=stock-x
+            balanced_stock.append(stock)
+            order_placed.append(x)
+            extra_order_for_refill.append(Extra_order)
+    df = pd.DataFrame(list(zip(inventory_management_list_alldf,extra_order_for_refill,refill_list,order_placed,balanced_stock)), columns =['order_demand','Refill_0rder','refill_list','order','balanced'],index=FORECAST_alldf.index)
+    st.write(df)
+    mae = np.mean(np.abs(results.resid))
+    st.write('MAE: %.3f' % mae)
+    return(df,ax,FORECAST_alldf)
+if st.button('All_Category'):
+    N_Month = int(st.text_input(" Input Forecast Months ", 24))
+    All_Category()
+
 if st.button('Category_07'):
     N_Month = int(st.text_input(" Input Forecast Months ", 24))
     Category_07()
@@ -464,10 +551,3 @@ if st.button('Category_19'):
 if st.button('Category_06'):
     N_Month = int(st.text_input(" Input Forecast Months ", 24))
     Category_06()
-
-    
-    
-    
-    
-    
-
