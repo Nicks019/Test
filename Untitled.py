@@ -190,7 +190,7 @@ def Category_06():
 if st.button('Category_19'):
     N_Month = int(st.text_input(" Input Forecast Months ", 24))
     Category_19()
-elif st.button('Category_06')
+elif st.button('Category_06'):
     N_Month = int(st.text_input(" Input Forecast Months ", 24))
     Category_06()
 else:
