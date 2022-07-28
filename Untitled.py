@@ -46,54 +46,57 @@ Product = ['Category_19', 'Category_06', 'Category_05','Category_07','Category_2
 Selected_Product = st.selectbox('Select dataset for prediction', Product)
 N_Month = int(st.text_input(" Input Forecast Months ", 24))
 
-li = ['Category_019','Category_006','Category_028','Category_005','Category_007']
-df19 = df[df.Product_Category==li[0]]
-df19= df19.groupby('Date')['Order_Demand'].count().reset_index()
-df19 = df19.set_index(['Date'])
-df19= df19['Order_Demand'].resample('MS').mean()
-df19 = df19.fillna(df19.bfill())
-df_19=df19.to_frame()
-decomposition = sm.tsa.seasonal_decompose(df_19, model='multiplicative')
-model=sm.tsa.statespace.SARIMAX(df19,order=(1,1,1),seasonal_order=(1,1,0,12))
-results=model.fit()
-pred = results.get_prediction(start=pd.to_datetime('2014-05-01'), dynamic=True)
-pred_ci = pred.conf_int()
-pred_uc = results.get_forecast(steps = N_Month)
-pred_ci = pred_uc.conf_int()
-ax = df19.plot(label='observed', figsize=(16, 8))
-pred_uc.predicted_mean.plot(ax=ax, label='Forecast')
-ax.fill_between(pred_ci.index,
-                pred_ci.iloc[:, 0],
-                pred_ci.iloc[:, 1], color='k', alpha=.25)
-ax.set_xlabel('Date')
-ax.set_ylabel('Order_Demand')
-plt.show()
-plt.legend()
-st.pyplot()
-FORECAST_19 = results.forecast(steps = N_Month)
-FORECAST_19=FORECAST_19.to_frame()
-inventory_management_list_19 = FORECAST_19['predicted_mean'].tolist()
-stock=0
-refill_list=[]
-balanced_stock=[]
-order_placed=[]
-extra_order_for_refill=[]
-for x in inventory_management_list_19:
-    if stock<=(x*1.2):
-        Extra_order=(x*1.2)-stock
-        stock=stock+Extra_order
-        refill_list.append(stock)
-        stock=stock-x#balancedStock
-        balanced_stock.append(stock)
-        order_placed.append(x)
-        extra_order_for_refill.append(Extra_order)
-    else:
-        Extra_order=0
-        stock=stock+Extra_order
-        refill_list.append(stock)
-        stock=stock-x
-        balanced_stock.append(stock)
-        order_placed.append(x)
-        extra_order_for_refill.append(Extra_order)
-df = pd.DataFrame(list(zip(inventory_management_list_19,extra_order_for_refill,refill_list,order_placed,balanced_stock)), columns =['order_demand','Refill_0rder','refill_list','order','balanced'],index=FORECAST_19.index)
-st.write(df)
+if Product == Product[0]:
+    li = ['Category_019','Category_006','Category_028','Category_005','Category_007']
+    df19 = df[df.Product_Category==li[0]]
+    df19= df19.groupby('Date')['Order_Demand'].count().reset_index()
+    df19 = df19.set_index(['Date'])
+    df19= df19['Order_Demand'].resample('MS').mean()
+    df19 = df19.fillna(df19.bfill())
+    df_19=df19.to_frame()
+    decomposition = sm.tsa.seasonal_decompose(df_19, model='multiplicative')
+    model=sm.tsa.statespace.SARIMAX(df19,order=(1,1,1),seasonal_order=(1,1,0,12))
+    results=model.fit()
+    pred = results.get_prediction(start=pd.to_datetime('2014-05-01'), dynamic=True)
+    pred_ci = pred.conf_int()
+    pred_uc = results.get_forecast(steps = N_Month)
+    pred_ci = pred_uc.conf_int()
+    ax = df19.plot(label='observed', figsize=(16, 8))
+    pred_uc.predicted_mean.plot(ax=ax, label='Forecast')
+    ax.fill_between(pred_ci.index,
+                    pred_ci.iloc[:, 0],
+                    pred_ci.iloc[:, 1], color='k', alpha=.25)
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Order_Demand')
+    plt.show()
+    plt.legend()
+    st.pyplot()
+    FORECAST_19 = results.forecast(steps = N_Month)
+    FORECAST_19=FORECAST_19.to_frame()
+    inventory_management_list_19 = FORECAST_19['predicted_mean'].tolist()
+    stock=0
+    refill_list=[]
+    balanced_stock=[]
+    order_placed=[]
+    extra_order_for_refill=[]
+    for x in inventory_management_list_19:
+        if stock<=(x*1.2):
+            Extra_order=(x*1.2)-stock
+            stock=stock+Extra_order
+            refill_list.append(stock)
+            stock=stock-x#balancedStock
+            balanced_stock.append(stock)
+            order_placed.append(x)
+            extra_order_for_refill.append(Extra_order)
+        else:
+            Extra_order=0
+            stock=stock+Extra_order
+            refill_list.append(stock)
+            stock=stock-x
+            balanced_stock.append(stock)
+            order_placed.append(x)
+            extra_order_for_refill.append(Extra_order)
+    df = pd.DataFrame(list(zip(inventory_management_list_19,extra_order_for_refill,refill_list,order_placed,balanced_stock)), columns =['order_demand','Refill_0rder','refill_list','order','balanced'],index=FORECAST_19.index)
+    st.write(df)
+else:
+    print('end')
