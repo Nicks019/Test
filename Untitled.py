@@ -188,7 +188,7 @@ def Category_06():
     df = pd.DataFrame(list(zip(inventory_management_list_06,extra_order_for_refill,refill_list,order_placed,balanced_stock)), columns =['order_demand','Refill_0rder','refill_list','order','balanced'],index=FORECAST_06.index)
     st.write(df)
     mae = np.mean(np.abs(results.resid))
-    print('MAE: %.3f' % mae)
+    st.write('MAE: %.3f' % mae)
     return(df,ax,FORECAST_06)
 if st.button('Category_19'):
     N_Month = int(st.text_input(" Input Forecast Months ", 24))
