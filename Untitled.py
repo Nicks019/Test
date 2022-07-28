@@ -98,6 +98,8 @@ def Category_19():
             extra_order_for_refill.append(Extra_order)
     df = pd.DataFrame(list(zip(inventory_management_list_19,extra_order_for_refill,refill_list,order_placed,balanced_stock)), columns =['order_demand','Refill_0rder','refill_list','order','balanced'],index=FORECAST_19.index)
     st.write(df)
+    mae = np.mean(np.abs(results.resid))
+    st.write('MAE: %.3f' % mae)
     return(df,ax,FORECAST_19)
 def Category_06():
     df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
