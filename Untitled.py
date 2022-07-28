@@ -42,11 +42,12 @@ def limit_imputer(value):
 df['Order_Demand']=df['Order_Demand'].apply(limit_imputer)
 
 
-Product = ['Category_19', 'Category_06', 'Category_05','Category_07','Category_28']
-Selected_Product = st.selectbox('Select dataset for prediction', Product)
+#Product = ['Category_19', 'Category_06', 'Category_05','Category_07','Category_28']
+#Selected_Product = st.selectbox('Select dataset for prediction', Product)
 N_Month = int(st.text_input(" Input Forecast Months ", 24))
 
-if (Product == 'Category_19'):
+st.button('Category_19')
+
     li = ['Category_019','Category_006','Category_028','Category_005','Category_007']
     df19 = df[df.Product_Category==li[0]]
     df19= df19.groupby('Date')['Order_Demand'].count().reset_index()
