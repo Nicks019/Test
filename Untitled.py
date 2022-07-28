@@ -44,7 +44,7 @@ def Category_19():
 
     #Product = ['Category_19', 'Category_06', 'Category_05','Category_07','Category_28']
     #Selected_Product = st.selectbox('Select dataset for prediction', Product)
-    N_Month = int(st.text_input(" Input Forecast Months ", 24))
+    #N_Month = int(st.text_input(" Input Forecast Months ", 24))
 
 # st.button('Category_19')
 
@@ -100,6 +100,7 @@ def Category_19():
     st.write(df)
     return(df,ax,FORECAST_19)
 if st.button('Category_19'):
+    N_Month = int(st.text_input(" Input Forecast Months ", 24))
     Category_19()
     
     
