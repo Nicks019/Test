@@ -147,6 +147,17 @@ def Category_06():
     decomposition = sm.tsa.seasonal_decompose(df_06, model='multiplicative')
     model=sm.tsa.statespace.SARIMAX(df06,order=(1,1,1),seasonal_order=(1,1,0,12))
     results=model.fit()
+    
+    pred = results.get_prediction(start=pd.to_datetime('2014-05-01'), dynamic=True) #false is when using the entire history.
+    pred_ci = pred.conf_int()
+    ax = df6['2016':].plot(label='observed')
+    pred.predicted_mean.plot(ax=ax, label='One-step ahead Forecast', alpha=.7, figsize=(14, 7))
+    ax.fill_between(pred_ci.index,pred_ci.iloc[:, 0],pred_ci.iloc[:, 1], color='blue', alpha=.2)
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Order_Demand')
+    plt.legend()
+    plt.show()
+    
     pred = results.get_prediction(start=pd.to_datetime('2014-05-01'), dynamic=True)
     pred_ci = pred.conf_int()
     pred_uc = results.get_forecast(steps = N_Month)
