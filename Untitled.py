@@ -184,12 +184,12 @@ def Category_06():
     st.write(df)
     mae = np.mean(np.abs(results.resid))
     st.write('MAE: %.3f' % mae)
+    y_forecasted = pred.predicted_mean
+    y_truth = df06['2016-01-01':]
+    mse = ((y_forecasted - y_truth) ** 2).mean()
+    st.write('MSE {}'.format(round(mse, 2)))
+    st.write('RMSE: {}'.format(round(np.sqrt(mse), 2)))
     return(df,ax,FORECAST_06)
-    y_forecasted1 = pred.predicted_mean
-    y_truth1 = df06['2016-01-01':]
-    mse1 = ((y_forecasted1 - y_truth1) ** 2).mean()
-    st.write('MSE {}'.format(round(mse1, 2)))
-    st.write('RMSE: {}'.format(round(np.sqrt(mse1), 2)))
 
 def Category_28():
     df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
