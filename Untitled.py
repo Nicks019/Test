@@ -150,11 +150,11 @@ def Category_06():
     
     pred = results.get_prediction(start=pd.to_datetime('2014-05-01'), dynamic=True) #false is when using the entire history.
     pred_ci = pred.conf_int()
-    ax = df6['2016':].plot(label='observed')
-    pred.predicted_mean.plot(ax=ax, label='One-step ahead Forecast', alpha=.7, figsize=(14, 7))
-    ax.fill_between(pred_ci.index,pred_ci.iloc[:, 0],pred_ci.iloc[:, 1], color='blue', alpha=.2)
-    ax.set_xlabel('Date')
-    ax.set_ylabel('Order_Demand')
+    ax1 = df6['2016':].plot(label='observed')
+    pred.predicted_mean.plot(ax1=ax1, label='One-step ahead Forecast', alpha=.7, figsize=(14, 7))
+    ax1.fill_between(pred_ci.index,pred_ci.iloc[:, 0],pred_ci.iloc[:, 1], color='blue', alpha=.2)
+    ax1.set_xlabel('Date')
+    ax1.set_ylabel('Order_Demand')
     plt.legend()
     plt.show()
     
@@ -197,7 +197,7 @@ def Category_06():
             extra_order_for_refill.append(Extra_order)
     df = pd.DataFrame(list(zip(inventory_management_list_06,extra_order_for_refill,refill_list,order_placed,balanced_stock)), columns =['order_demand','Refill_0rder','refill_list','order','balanced'],index=FORECAST_06.index)
     st.write(df)
-    return(df,ax,FORECAST_06)
+    return(df,ax,FORECAST_06,ax1)
 if st.button('Category_19'):
     N_Month = int(st.text_input(" Input Forecast Months ", 24))
     Category_19()
