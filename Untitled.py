@@ -142,7 +142,7 @@ def Category_06():
     df06= df06.groupby('Date')['Order_Demand'].count().reset_index()
     df06 = df06.set_index(['Date'])
     df06= df06['Order_Demand'].resample('MS').mean()
-    df06 = df06.fillna(df19.bfill())
+    df06 = df06.fillna(df06.bfill())
     df_06=df06.to_frame()
     decomposition = sm.tsa.seasonal_decompose(df_06, model='multiplicative')
     model=sm.tsa.statespace.SARIMAX(df06,order=(1,1,1),seasonal_order=(1,1,0,12))
