@@ -109,6 +109,7 @@ def Category_19():
     st.write('MSE {}'.format(round(mse, 2)))
     st.write('RMSE: {}'.format(round(np.sqrt(mse), 2)))
     return(df,ax,FORECAST_19)
+
 def Category_06():
     df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
     index = df[ df['Order_Demand'] <1000 ].index
@@ -138,14 +139,6 @@ def Category_06():
         else:
             return value
     df['Order_Demand']=df['Order_Demand'].apply(limit_imputer)
-
-
-    #Product = ['Category_19', 'Category_06', 'Category_05','Category_07','Category_28']
-    #Selected_Product = st.selectbox('Select dataset for prediction', Product)
-    #N_Month = int(st.text_input(" Input Forecast Months ", 24))
-
-# st.button('Category_19')
-
 
     li = ['Category_019','Category_006','Category_028','Category_005','Category_007']
     df06 = df[df.Product_Category==li[1]]
@@ -200,6 +193,12 @@ def Category_06():
     mae = np.mean(np.abs(results.resid))
     st.write('MAE: %.3f' % mae)
     return(df,ax,FORECAST_06)
+    y_forecasted = pred.predicted_mean
+    y_truth = df06['2016-01-01':]
+    mse = ((y_forecasted - y_truth) ** 2).mean()
+    st.write('MSE {}'.format(round(mse, 2)))
+    st.write('RMSE: {}'.format(round(np.sqrt(mse), 2)))
+
 def Category_28():
     df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
     index = df[ df['Order_Demand'] <1000 ].index
@@ -284,6 +283,11 @@ def Category_28():
     mae = np.mean(np.abs(results.resid))
     st.write('MAE: %.3f' % mae)
     return(df,ax,FORECAST_28)
+    y_forecasted = pred.predicted_mean
+    y_truth = df28['2016-01-01':]
+    mse = ((y_forecasted - y_truth) ** 2).mean()
+    st.write('MSE {}'.format(round(mse, 2)))
+    st.write('RMSE: {}'.format(round(np.sqrt(mse), 2)))
 
 def Category_05():
     df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
@@ -369,6 +373,11 @@ def Category_05():
     mae = np.mean(np.abs(results.resid))
     st.write('MAE: %.3f' % mae)
     return(df,ax,FORECAST_05)
+    y_forecasted = pred.predicted_mean
+    y_truth = df05['2016-01-01':]
+    mse = ((y_forecasted - y_truth) ** 2).mean()
+    st.write('MSE {}'.format(round(mse, 2)))
+    st.write('RMSE: {}'.format(round(np.sqrt(mse), 2)))
 
 def Category_07():
     df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
@@ -454,6 +463,11 @@ def Category_07():
     mae = np.mean(np.abs(results.resid))
     st.write('MAE: %.3f' % mae)
     return(df,ax,FORECAST_07)
+    y_forecasted = pred.predicted_mean
+    y_truth = df07['2016-01-01':]
+    mse = ((y_forecasted - y_truth) ** 2).mean()
+    st.write('MSE {}'.format(round(mse, 2)))
+    st.write('RMSE: {}'.format(round(np.sqrt(mse), 2)))
 
 def All_Category():
     df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
@@ -538,6 +552,12 @@ def All_Category():
     mae = np.mean(np.abs(results.resid))
     st.write('MAE: %.3f' % mae)
     return(df,ax,FORECAST_alldf)
+    y_forecasted = pred.predicted_mean
+    y_truth = alldf['2016-01-01':]
+    mse = ((y_forecasted - y_truth) ** 2).mean()
+    st.write('MSE {}'.format(round(mse, 2)))
+    st.write('RMSE: {}'.format(round(np.sqrt(mse), 2)))
+    
 if st.button('All_Category'):
     N_Month = int(st.text_input(" Input Forecast Months ", 24))
     All_Category()
