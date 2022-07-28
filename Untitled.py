@@ -11,44 +11,44 @@ import statsmodels.api as sm
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title('Stock Forecast App')
 
+def Category_19():
+    df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
+    index = df[ df['Order_Demand'] <1000 ].index
+    df.drop(index,inplace=True)
+    df['Date'] = pd.to_datetime(df['Date'])
+    df['Year'] = df['Date'].dt.year
+    df['Month'] = df['Date'].dt.month
+    index1 = df[df['Year'] == 2011 ].index
+    df.drop(index1,inplace=True)
+    index2 = df[df['Year'] == 2017].index
+    df.drop(index2,inplace=True)
+    df.drop(['Year','Month'],axis=1,inplace=True)
+    df.dropna(axis=0, inplace=True)
+    q1=df['Order_Demand'].quantile(0.25)
+    q2=df['Order_Demand'].quantile(0.50)
+    q3=df['Order_Demand'].quantile(0.75)
+    iqr=q3-q1
+    upper_limit=q3+1.5*iqr
+    lower_limit=q1-1.5*iqr
+    upper_limit,lower_limit
+    def limit_imputer(value):
+        if value > upper_limit:
+            return upper_limit
+        if value < lower_limit:
+            a=a+1
+            return lower_limit
+        else:
+            return value
+    df['Order_Demand']=df['Order_Demand'].apply(limit_imputer)
 
-df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
-index = df[ df['Order_Demand'] <1000 ].index
-df.drop(index,inplace=True)
-df['Date'] = pd.to_datetime(df['Date'])
-df['Year'] = df['Date'].dt.year
-df['Month'] = df['Date'].dt.month
-index1 = df[df['Year'] == 2011 ].index
-df.drop(index1,inplace=True)
-index2 = df[df['Year'] == 2017].index
-df.drop(index2,inplace=True)
-df.drop(['Year','Month'],axis=1,inplace=True)
-df.dropna(axis=0, inplace=True)
-q1=df['Order_Demand'].quantile(0.25)
-q2=df['Order_Demand'].quantile(0.50)
-q3=df['Order_Demand'].quantile(0.75)
-iqr=q3-q1
-upper_limit=q3+1.5*iqr
-lower_limit=q1-1.5*iqr
-upper_limit,lower_limit
-def limit_imputer(value):
-    if value > upper_limit:
-        return upper_limit
-    if value < lower_limit:
-        a=a+1
-        return lower_limit
-    else:
-        return value
-df['Order_Demand']=df['Order_Demand'].apply(limit_imputer)
 
-
-#Product = ['Category_19', 'Category_06', 'Category_05','Category_07','Category_28']
-#Selected_Product = st.selectbox('Select dataset for prediction', Product)
-N_Month = int(st.text_input(" Input Forecast Months ", 24))
+    #Product = ['Category_19', 'Category_06', 'Category_05','Category_07','Category_28']
+    #Selected_Product = st.selectbox('Select dataset for prediction', Product)
+    N_Month = int(st.text_input(" Input Forecast Months ", 24))
 
 # st.button('Category_19')
 
-def Category_19():
+
     li = ['Category_019','Category_006','Category_028','Category_005','Category_007']
     df19 = df[df.Product_Category==li[0]]
     df19= df19.groupby('Date')['Order_Demand'].count().reset_index()
