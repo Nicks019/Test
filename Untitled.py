@@ -11,9 +11,6 @@ import statsmodels.api as sm
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title('Stock Forecast App')
 
-Product = ['Category_19', 'Category_06', 'Category_05','Category_07','Category_28']
-Selected_Product = st.selectbox('Select dataset for prediction', Product)
-N_Month = int(st.text_input(" Input Forecast Months ", 24))
 
 df = pd.read_csv(r"Historical Product Demand.csv",parse_dates=['Date'])
 index = df[ df['Order_Demand'] <1000 ].index
@@ -43,6 +40,12 @@ def limit_imputer(value):
     else:
         return value
 df['Order_Demand']=df['Order_Demand'].apply(limit_imputer)
+
+
+Product = ['Category_19', 'Category_06', 'Category_05','Category_07','Category_28']
+Selected_Product = st.selectbox('Select dataset for prediction', Product)
+N_Month = int(st.text_input(" Input Forecast Months ", 24))
+
 li = ['Category_019','Category_006','Category_028','Category_005','Category_007']
 df19 = df[df.Product_Category==li[0]]
 df19= df19.groupby('Date')['Order_Demand'].count().reset_index()
