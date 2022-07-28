@@ -46,7 +46,7 @@ df['Order_Demand']=df['Order_Demand'].apply(limit_imputer)
 #Selected_Product = st.selectbox('Select dataset for prediction', Product)
 N_Month = int(st.text_input(" Input Forecast Months ", 24))
 
-st.button('Category_19')
+# st.button('Category_19')
 
 def Category_19():
     li = ['Category_019','Category_006','Category_028','Category_005','Category_007']
