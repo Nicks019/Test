@@ -9,6 +9,8 @@ import statsmodels.stats.diagnostic as diag
 import statsmodels.api as sm
 
 st.set_page_config(page_title = "Compunnel digital")
+
+st.set_page_config(page_title = "Compunnel digital")
 st.image("compunnel.png",width=100)
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
